@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+  Packt Book: JavaFX 8 essentials 
+  Chapter 3. Developing a JavaFX desktop and web applications
+  @author Mohamed Taman
+-->
+<html>
+    <head>
+        <title>Google Maps</title>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <style>#canvas { height: 530px; width: 100%}</style>
+
+    </head>
+    <body>
+        <p>Google Maps</p>
+        <div id="canvas">
+            <script type="text/javascript">
+                document.map = new google.maps.Map(document.getElementById("canvas"));
+                var latlng = new google.maps.LatLng(30.0594885, 31.2584644);
+                var Options = {
+                    zoom: 13,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                
+                var map = new google.maps.Map(document.getElementById("canvas"), Options);
+              
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    draggable: false,
+                    title: "My Location",
+                    autoPan: true
+
+                });
+                var info = new google.maps.InfoWindow({
+                    content: "Hi I am here!!"
+                });
+                
+                google.maps.event.addListener(marker, 'mouseover', function () {
+                    info.open(map, marker);
+                });
+
+                document.goToLocation = function (x, y) {
+                    alert("goToLocation, x: " + x + ", y:" + y);
+                    var latLng = new google.maps.LatLng(x, y);
+                    marker.setPosition(latLng);
+                    map.setCenter(latLng);
+                };
+
+            </script>
+        </div>
+    </body>
+</html>
